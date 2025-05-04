@@ -63,6 +63,7 @@ dependencies {
     val room_version = "2.7.1"
 
     implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.0") // Use the version that matches your Compose version
     //ksp("androidx.room:room-compiler:$room_version")
   //  kapt("androidx.room:room-compiler:2.6.1")
     //kapt("androidx.room:room-compiler:2.5.0")

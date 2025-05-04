@@ -1,4 +1,23 @@
-// data/MovieDao.kt
+//package com.eshan.filmapp.data
+//
+//import androidx.room.Dao
+//import androidx.room.Insert
+//import androidx.room.Query
+//import com.eshan.filmapp.model.Movie
+//
+//@Dao
+//interface MovieDao {
+//
+//    @Query("SELECT * FROM movies")
+//    suspend fun getAllMovies(): List<MovieEntity>
+//
+//    @Insert
+//    suspend fun insertAll(movies: List<MovieEntity>)
+//
+//    @Query("SELECT * FROM movies WHERE LOWER(actors) LIKE '%' || LOWER(:actor) || '%'")
+//    suspend fun searchMoviesByActor(actor: String): List<Movie>
+//}
+
 package com.eshan.filmapp.data
 
 import androidx.room.Dao
@@ -6,27 +25,15 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.eshan.filmapp.model.Movie
 
-//@Dao
-//interface MovieDao {
-//    @Insert
-//    suspend fun insertAll(movies: List<MovieEntity>)
-//
-//    @Query("SELECT * FROM movies")
-//    suspend fun getAllMovies(): List<MovieEntity>
-//}
-
-
 @Dao
 interface MovieDao {
-
-    // This will return a Flow of List<MovieEntity> to observe changes in the database
+    // Change: Using LiveData instead of suspend functions
     @Query("SELECT * FROM movies")
-    suspend fun getAllMovies(): List<MovieEntity>
+    fun getAllMovies(): List<MovieEntity>
 
-    // This will insert a list of movies
     @Insert
-    suspend fun insertAll(movies: List<MovieEntity>)
+    fun insertAll(movies: List<MovieEntity>)
 
     @Query("SELECT * FROM movies WHERE LOWER(actors) LIKE '%' || LOWER(:actor) || '%'")
-    suspend fun searchMoviesByActor(actor: String): List<Movie>
+    fun searchMoviesByActor(actor: String): List<Movie>
 }

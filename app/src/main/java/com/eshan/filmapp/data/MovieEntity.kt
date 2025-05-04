@@ -1,4 +1,3 @@
-// data/MovieEntity.kt
 package com.eshan.filmapp.data
 
 import androidx.room.Entity

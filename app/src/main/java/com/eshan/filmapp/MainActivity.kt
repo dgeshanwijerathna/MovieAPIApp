@@ -21,14 +21,6 @@ import com.eshan.filmapp.ui.WebTitleSearchScreen
 import com.eshan.filmapp.ui.theme.ActorSearchScreen
 import com.eshan.filmapp.viewmodel.MovieViewModel
 
-//class MainActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent { MainMenuScreen() }
-//        }
-//
-//}
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
