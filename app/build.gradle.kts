@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.kapt")
+   // id("androidx.room")
 }
 
 android {
@@ -37,6 +39,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+//    room {
+//        schemaDirectory("$projectDir/schemas")
+//    }
 }
 
 dependencies {
@@ -52,7 +58,15 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation ("androidx.navigation:navigation-compose:2.7.5")
+    implementation(libs.androidx.room.common.jvm)
+   // implementation(libs.androidx.room.runtime.android)
+    val room_version = "2.7.1"
 
+    implementation("androidx.room:room-runtime:$room_version")
+    //ksp("androidx.room:room-compiler:$room_version")
+  //  kapt("androidx.room:room-compiler:2.6.1")
+    //kapt("androidx.room:room-compiler:2.5.0")
+    kapt("androidx.room:room-compiler:$room_version")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

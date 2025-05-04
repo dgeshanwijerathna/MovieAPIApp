@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -12,11 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.eshan.filmapp.ui.theme.SearchMovieScreen
 import androidx.navigation.NavController
+import com.eshan.filmapp.viewmodel.MovieViewModel
 
 //class MainActivity : ComponentActivity() {
 //    override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainMenuScreen(navController: NavController) {
+fun MainMenuScreen(navController: NavController,movieViewModel: MovieViewModel = viewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -49,6 +50,7 @@ fun MainMenuScreen(navController: NavController) {
         ) {
             Button(onClick = {
                 // TODO: Navigate to Add Movies to DB screen
+                movieViewModel.insertHardcodedMovies()
             }) {
                 Text("Add Movies to DB")
             }
