@@ -6,16 +6,39 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.eshan.filmapp.data.MovieDatabase
 import com.eshan.filmapp.data.MovieEntity
+import com.eshan.filmapp.model.Movie
 import com.eshan.filmapp.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MovieViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: MovieRepository
+    private val movieDao = MovieDatabase.getDatabase(application).movieDao()
+
+    private val _searchResults = MutableStateFlow<List<Movie>>(emptyList())
+    val searchResults: StateFlow<List<Movie>> = _searchResults
 
     init {
         val dao = MovieDatabase.getDatabase(application).movieDao()
         repository = MovieRepository(dao)
+    }
+
+    fun searchMoviesByActor(query: String) {
+        viewModelScope.launch {
+            _searchResults.value = movieDao.searchMoviesByActor(query)
+        }
+    }
+
+    private val _webSearchResults = MutableStateFlow<List<Movie>>(emptyList())
+    val webSearchResults: StateFlow<List<Movie>> = _webSearchResults
+
+    fun searchMoviesByTitleFromWeb(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val results = repository.searchMoviesFromWeb(query)
+            _webSearchResults.value = results
+        }
     }
 
     fun insertHardcodedMovies() {

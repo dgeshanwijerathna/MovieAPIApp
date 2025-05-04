@@ -7,11 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eshan.filmapp.viewmodel.SearchMovieViewModel
+import androidx.compose.runtime.collectAsState
+
 
 @Composable
 fun SearchMovieScreen(viewModel: SearchMovieViewModel = viewModel()) {
     var movieTitle by remember { mutableStateOf("") }
-    val movie by viewModel.movie.collectAsState()
+   // val movie by viewModel.movie.collectAsState()
 
     val movieResult by viewModel.searchResult.collectAsState()
 

@@ -17,6 +17,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.eshan.filmapp.ui.theme.SearchMovieScreen
 import androidx.navigation.NavController
+import com.eshan.filmapp.ui.WebTitleSearchScreen
+import com.eshan.filmapp.ui.theme.ActorSearchScreen
 import com.eshan.filmapp.viewmodel.MovieViewModel
 
 //class MainActivity : ComponentActivity() {
@@ -63,8 +65,16 @@ fun MainMenuScreen(navController: NavController,movieViewModel: MovieViewModel =
 
             Button(onClick = {
                 // TODO: Navigate to Search for Actors screen
+                navController.navigate("actor_search")
             }) {
                 Text("Search for Actors")
+            }
+
+            Button(
+                onClick = { navController.navigate("web_title_search") },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Search Movie Titles from Web")
             }
         }
     }
@@ -82,6 +92,13 @@ fun AppNavigation() {
             SearchMovieScreen()
         }
         // You can later add "add_movie", "search_actors", etc.
+        composable("actor_search") {
+            ActorSearchScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable("web_title_search") {
+            WebTitleSearchScreen()
+        }
     }
 }
 

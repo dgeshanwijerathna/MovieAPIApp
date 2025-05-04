@@ -4,6 +4,7 @@ package com.eshan.filmapp.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.eshan.filmapp.model.Movie
 
 //@Dao
 //interface MovieDao {
@@ -25,4 +26,7 @@ interface MovieDao {
     // This will insert a list of movies
     @Insert
     suspend fun insertAll(movies: List<MovieEntity>)
+
+    @Query("SELECT * FROM movies WHERE LOWER(actors) LIKE '%' || LOWER(:actor) || '%'")
+    suspend fun searchMoviesByActor(actor: String): List<Movie>
 }
