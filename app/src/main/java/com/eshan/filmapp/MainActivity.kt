@@ -3,13 +3,17 @@ package com.eshan.filmapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -32,44 +36,69 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainMenuScreen(navController: NavController,movieViewModel: MovieViewModel = viewModel()) {
+    val customFont = FontFamily(Font(R.font.lobster_regular))
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFFFFCDD2),
+                            Color(0xFFFFEBEE)
+                        )
+                    )
+                )
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Button(onClick = {
-                // TODO: Navigate to Add Movies to DB screen
-                movieViewModel.insertHardcodedMovies()
-            }) {
-                Text("Add Movies to DB")
-            }
-
-            Button(onClick = {
-                navController.navigate("search_movie")
-            }) {
-                Text("Search for Movies")
-            }
-
-            Button(onClick = {
-                // TODO: Navigate to Search for Actors screen
-                navController.navigate("actor_search")
-            }) {
-                Text("Search for Actors")
-            }
-
-            Button(
-                onClick = { navController.navigate("web_title_search") },
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text("Search Movie Titles from Web")
+                Text(
+                    text = "Welcome to the Movie API App",
+                    fontFamily = customFont,
+                    fontSize = MaterialTheme.typography.headlineLarge.fontSize,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
+                )
+                val buttonColors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Black
+                )
+                Button(
+                    onClick = {
+                        movieViewModel.insertHardcodedMovies()
+                    }, colors = buttonColors
+                ) {
+                    Text("Add Movies to DB")
+                }
+
+                Button(
+                    onClick = {
+                        navController.navigate("search_movie")
+                    }, colors = buttonColors
+                ) {
+                    Text("Search for Movies")
+                }
+
+                Button(
+                    onClick = {
+                        navController.navigate("actor_search")
+                    }, colors = buttonColors
+                ) {
+                    Text("Search for Actors")
+                }
+
+                Button(
+                    onClick = { navController.navigate("web_title_search") },
+                    colors = buttonColors
+                ) {
+                    Text("Search Movie Titles from Web")
+                }
             }
-        }
-    }
+
+   }
 }
 
 @Composable
@@ -80,10 +109,11 @@ fun AppNavigation() {
         composable("main_menu") {
             MainMenuScreen(navController)
         }
+
         composable("search_movie") {
             SearchMovieScreen()
         }
-        // You can later add "add_movie", "search_actors", etc.
+
         composable("actor_search") {
             ActorSearchScreen(onBack = { navController.popBackStack() })
         }
